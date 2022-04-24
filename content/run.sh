@@ -43,4 +43,10 @@ function build_server_instance()
 
 build_server_instance
 unset HTTPS_PROXY
+if [[ -z "$PCCS_URL" ]]; then
+    echo "NO PCCS"
+else
+    sed -i "s#https://localhost:8081/sgx/certification/v3/#${PCCS_URL}#g" /etc/sgx_default_qcnl.conf
+fi
+sed -i "s/#USE_SECURE_CERT=FALSE/USE_SECURE_CERT=FALSE/g" /etc/sgx_default_qcnl.conf
 cd occlum_server && occlum run /bin/server localhost:50051

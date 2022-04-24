@@ -11,8 +11,6 @@ sudo docker run -itd \
 	-v /var/run/aesmd/aesm.socket:/var/run/aesmd/aesm.socket \
 	-e LOCAL_IP=$LOCAL_IP \
 	-e SGX_MEM_SIZE=8GB \
-	-e SGX_THREAD=512 \
-	-e SGX_HEAP=512MB \
-	-e SGX_KERNEL_HEAP=1GB \
+	-e PCCS_URL=$PCCS_URL \
 	piaolaidelangman/occlum-server:1.0 \
 	bash

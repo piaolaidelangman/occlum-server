@@ -67,9 +67,11 @@ bash start-server.sh
 * Starts the GRPC-RATLS server in background.
 ```
 sudo docker exec -it occlum-server bash
-```
-* Modify `/etc/sgx_default_qcnl.conf`
-```commandline
-cd /opt/content
+cd /opt/occlum-server/content
 bash run.sh
+```
+
+* Get `image_key`
+```commandline
+docker cp occlum-server:/opt/occlum-server/content/image_key .
 ```
