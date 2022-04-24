@@ -1,6 +1,20 @@
 #!/bin/bash
 set -e
 
+function gen_secret_json() {
+    # First generate cert/key by openssl
+    bash ./gen-cert.sh
+
+    # Then do base64 encode
+    cert=$(base64 -w 0 flask.crt)
+    key=$(base64 -w 0 flask.key)
+    image_key=$(base64 -w 0 image_key)
+
+    # Then generate secret json
+    jq -n --arg cert "$cert" --arg key "$key" --arg image_key "$image_key" \
+        '{"flask_cert": $cert, "flask_key": $key, "image_key": $image_key}' >  secret_config.json
+}
+
 function build_server_instance()
 {
     occlum gen-image-key image_key
@@ -28,5 +42,5 @@ function build_server_instance()
 }
 
 build_server_instance
-
+unset HTTPS_PROXY
 cd occlum_server && occlum run /bin/server localhost:50051

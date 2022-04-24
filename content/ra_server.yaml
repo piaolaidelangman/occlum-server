@@ -4,7 +4,7 @@ targets:
   - target: /bin/
     copy:
       - files:
-        - ${RATLS_DIR}/grpc-src/examples/cpp/ratls/build/server
+        - ../ra_tls/grpc-src/examples/cpp/ratls/build/server
   - target: /
     copy:
       - files:
@@ -13,4 +13,4 @@ targets:
   - target: /usr/share/grpc/
     copy:
       - files:
-        - ${RATLS_DIR}/grpc-src/etc/roots.pem
+        - ../ra_tls/grpc-src/etc/roots.pem
