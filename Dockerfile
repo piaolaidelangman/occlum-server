@@ -1,5 +1,6 @@
 FROM ubuntu:20.04
-ADD ./content /opt
 
-RUN cd /opt/content && \
+RUN cd /opt/ && \
+    git clone https://github.com/piaolaidelangman/occlum-server && \
+    cd occlum-server/content && \
     bash build_content.sh
