@@ -57,19 +57,19 @@ For this demo, a modified [`init`](./init_ra/) is used. Besides the general `ini
 
 
 ## How-to build the demo
+```commandline
+bash start-server.sh
+```
 
-* Just run `build_content.sh` which builds everything.
-Once successful, two Occlum instances are created.
-```
-occlum_client
-occlum_server
-```
 
 ## How-to run
-* Modify `/etc/sgx_default_qcnl.conf`
 
 * Starts the GRPC-RATLS server in background.
 ```
-cd occlum_server
-occlum run /bin/server localhost:50051 &
+sudo docker exec -it occlum-server bash
+```
+* Modify `/etc/sgx_default_qcnl.conf`
+```commandline
+cd /opt/content
+bash run.sh
 ```
