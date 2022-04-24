@@ -43,8 +43,6 @@ Details could refer to the `build_server_instance` in script [`build_content.sh`
 The `RA Verify Config` JSON records the secrets. Each secret has a name and its base64 encoded string value, such as
 ```
 {
-    "flask_cert" : "dGVzdCBzYW1wbGUgY2VydGlmaWNhdGVzCg==",
-    "flask_key" : "dGVzdCBzYW1wbGUga2V5Cg=="
     "image_key" : "YTUtNmQtN2YtY2YtYWUtOTMtZTItMWYtNWItOGEtODMtM2YtNzktNzgtMjktZmYK"
 }
 ```
@@ -68,25 +66,10 @@ occlum_server
 ```
 
 ## How-to run
+* Modify `/etc/sgx_default_qcnl.conf`
 
 * Starts the GRPC-RATLS server in background.
 ```
 cd occlum_server
 occlum run /bin/server localhost:50051 &
-```
-
-* Starts the Flask-TLS web portal in backgroud.
-```
-cd occlum_client
-occlum run /bin/rest_api.py &
-```
-
-Above two could be executed in one script [`run.sh`](./run.sh).
-
-* Access the Flask-TLS web portal with valid certificate.
-```
-curl --cacert flask.crt -X PUT https://localhost:4996/customer/1 -d "data=Tom"
-curl --cacert flask.crt -X PUT https://localhost:4996/customer/2 -d "data=Jerry"
-curl --cacert flask.crt -X GET https://localhost:4996/customer/1
-curl --cacert flask.crt -X GET https://localhost:4996/customer/2
 ```
