@@ -1,18 +1,32 @@
 #!/bin/bash
 set -e
 
-GRPC_ADDR="localhost:50051"
+function build_server_instance()
+{
+    occlum gen-image-key image_key
+    gen_secret_json
+    rm -rf occlum_server && occlum new occlum_server
+    pushd occlum_server
 
-echo "Start GRPC server on backgound ..."
+    jq '.verify_mr_enclave = "off" |
+        .verify_mr_signer = "off" |
+        .verify_isv_prod_id = "off" |
+        .verify_isv_svn = "off" |
+        .verify_enclave_debuggable = "on" |
+        .sgx_mrs[0].debuggable = false ' ../ra_config_template.json > dynamic_config.json
 
-pushd occlum_server
-occlum run /bin/server ${GRPC_ADDR} &
-popd
+    new_json="$(jq '.resource_limits.user_space_size = "500MB" |
+                    .metadata.debuggable = false ' Occlum.json)" && \
+    echo "${new_json}" > Occlum.json
 
-sleep 3
+    rm -rf image
+    copy_bom -f ../ra_server.yaml --root image --include-dir /opt/occlum/etc/template
 
-echo "Start Flask-TLS restful web portal on backgound ..."
+    occlum build
 
-pushd occlum_client
-occlum run /bin/rest_api.py &
-popd
+    popd
+}
+
+build_server_instance
+
+cd occlum_server && occlum run /bin/server localhost:50051
