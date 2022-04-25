@@ -12,5 +12,7 @@ sudo docker run -itd \
 	-e LOCAL_IP=$LOCAL_IP \
 	-e SGX_MEM_SIZE=8GB \
 	-e PCCS_URL=$PCCS_URL \
+	-e ATTESTATION_SERVER_IP=$ATTESTATION_SERVER_IP \
+	-e ATTESTATION_SERVER_PORT=$ATTESTATION_SERVER_PORT \
 	piaolaidelangman/occlum-server:1.0 \
 	bash
