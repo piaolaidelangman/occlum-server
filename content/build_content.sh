@@ -32,4 +32,3 @@ function build_init_ra()
 
 build_ratls
 build_init_ra
-
