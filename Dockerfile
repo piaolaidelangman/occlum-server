@@ -10,4 +10,4 @@ ENV HTTPS_PROXY=http://$HTTPS_PROXY_HOST:$HTTPS_PROXY_PORT
 RUN cd /opt/ && \
     git clone https://github.com/piaolaidelangman/occlum-server && \
     cd occlum-server/content && \
-    bash build_content.sh
+    bash build_ra_tls.sh
