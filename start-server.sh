@@ -1,5 +1,5 @@
 # Clean up old container
-sudo docker rm -f bigdl-ppml-trusted-big-data-ml-scala-occlum
+sudo docker rm -f occlum-server
 
 # Run new command in container
 sudo docker run -itd \
