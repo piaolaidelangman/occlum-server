@@ -49,4 +49,4 @@ else
     sed -i "s#https://localhost:8081/sgx/certification/v3/#${PCCS_URL}#g" /etc/sgx_default_qcnl.conf
 fi
 sed -i "s/#USE_SECURE_CERT=FALSE/USE_SECURE_CERT=FALSE/g" /etc/sgx_default_qcnl.conf
-cd occlum_server && occlum run /bin/server localhost:50051
+cd occlum_server && occlum run /bin/server $ATTESTATION_SERVER_IP:$ATTESTATION_SERVER_PORT
